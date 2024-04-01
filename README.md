@@ -93,4 +93,4 @@ You can change the `config-file` to change the model and dataset.
 ```
 
 ## Acknowledgment
-AggDet is built upon the awesome works [Codet](https://github.com/CVMI-Lab/CoDet) and [Detic](https://github.com/facebookresearch/Detic). Many thanks for their wonderful works. 
+AggDet is built upon the awesome works [Codet](https://github.com/CVMI-Lab/CoDet), [EVA](https://github.com/baaivision/EVA/tree/master) and [Detic](https://github.com/facebookresearch/Detic). Many thanks for their wonderful works. 
