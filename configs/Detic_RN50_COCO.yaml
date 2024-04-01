@@ -1,0 +1,529 @@
+CUDNN_BENCHMARK: false
+DATALOADER:
+  ASPECT_RATIO_GROUPING: true
+  DATASET_ANN:
+  - box
+  - captiontag
+  DATASET_BS:
+  - 2
+  - 8
+  DATASET_INPUT_SCALE:
+  - &id001
+    - 0.1
+    - 2.0
+  - - 0.5
+    - 1.5
+  DATASET_INPUT_SIZE:
+  - 896
+  - 384
+  DATASET_MAX_SIZES:
+  - 1333
+  - 667
+  DATASET_MIN_SIZES:
+  - - 800
+    - 800
+  - - 400
+    - 400
+  DATASET_RATIO:
+  - 1
+  - 4
+  FILTER_EMPTY_ANNOTATIONS: false
+  MULTI_DATASET_GROUPING: true
+  NUM_WORKERS: 8
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: MultiDatasetSampler
+  TARFILE_PATH: datasets/imagenet/metadata-22k/tar_files.npy
+  TAR_INDEX_DIR: datasets/imagenet/metadata-22k/tarindex_npy
+  USE_DIFF_BS_SIZE: true
+  USE_RFS:
+  - false
+  - false
+  USE_TAR_DATASET: false
+DATASETS:
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: []
+  PROPOSAL_FILES_TRAIN: []
+  TEST:
+  - coco_generalized_zeroshot_val
+  TRAIN:
+  - coco_zeroshot_train_oriorder
+  - coco_caption_train_tags
+DEBUG: false
+DEBUG_SHOW_NAME: false
+EVAL_AP_FIX: false
+EVAL_CAT_SPEC_AR: false
+EVAL_PRED_AR: false
+EVAL_PROPOSAL_AR: false
+FIND_UNUSED_PARAM: true
+FP16: true
+GEN_PSEDO_LABELS: false
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  CROP:
+    ENABLED: false
+    SIZE:
+    - 0.9
+    - 0.9
+    TYPE: relative_range
+  CUSTOM_AUG: ResizeShortestEdge
+  FORMAT: BGR
+  MASK_FORMAT: polygon
+  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TRAIN: 1333
+  MIN_SIZE_TEST: 800
+  MIN_SIZE_TRAIN:
+  - 800
+  - 800
+  MIN_SIZE_TRAIN_SAMPLING: range
+  NOT_CLAMP_BOX: false
+  RANDOM_FLIP: horizontal
+  SCALE_RANGE: *id001
+  TEST_INPUT_TYPE: default
+  TEST_SIZE: 640
+  TRAIN_SIZE: 640
+IS_DEBUG: false
+MODEL:
+  ANCHOR_GENERATOR:
+    ANGLES:
+    - - -90
+      - 0
+      - 90
+    ASPECT_RATIOS:
+    - - 0.5
+      - 1.0
+      - 2.0
+    NAME: DefaultAnchorGenerator
+    OFFSET: 0.0
+    SIZES:
+    - - 32
+      - 64
+      - 128
+      - 256
+      - 512
+  BACKBONE:
+    FREEZE_AT: 2
+    NAME: build_resnet_backbone
+  BIFPN:
+    NORM: GN
+    NUM_BIFPN: 6
+    NUM_LEVELS: 5
+    OUT_CHANNELS: 160
+    SEPARABLE_CONV: false
+  CAP_BATCH_RATIO: 4
+  CENTERNET:
+    AS_PROPOSAL: false
+    CENTER_NMS: false
+    FPN_STRIDES:
+    - 8
+    - 16
+    - 32
+    - 64
+    - 128
+    HM_FOCAL_ALPHA: 0.25
+    HM_FOCAL_BETA: 4
+    HM_MIN_OVERLAP: 0.8
+    IGNORE_HIGH_FP: -1.0
+    INFERENCE_TH: 0.05
+    IN_FEATURES:
+    - p3
+    - p4
+    - p5
+    - p6
+    - p7
+    LOC_LOSS_TYPE: giou
+    LOSS_GAMMA: 2.0
+    MIN_RADIUS: 4
+    MORE_POS: false
+    MORE_POS_THRESH: 0.2
+    MORE_POS_TOPK: 9
+    NEG_WEIGHT: 1.0
+    NMS_TH_TEST: 0.6
+    NMS_TH_TRAIN: 0.6
+    NORM: GN
+    NOT_NMS: false
+    NOT_NORM_REG: true
+    NO_REDUCE: false
+    NUM_BOX_CONVS: 4
+    NUM_CLASSES: 80
+    NUM_CLS_CONVS: 4
+    NUM_SHARE_CONVS: 0
+    ONLY_PROPOSAL: false
+    POST_NMS_TOPK_TEST: 100
+    POST_NMS_TOPK_TRAIN: 100
+    POS_WEIGHT: 1.0
+    PRE_NMS_TOPK_TEST: 1000
+    PRE_NMS_TOPK_TRAIN: 1000
+    PRIOR_PROB: 0.01
+    REG_WEIGHT: 2.0
+    SIGMOID_CLAMP: 0.0001
+    SOI:
+    - - 0
+      - 80
+    - - 64
+      - 160
+    - - 128
+      - 320
+    - - 256
+      - 640
+    - - 512
+      - 10000000
+    USE_DEFORMABLE: false
+    WITH_AGN_HM: false
+  DATASET_LOSS_WEIGHT: []
+  DETR:
+    CLS_WEIGHT: 2.0
+    DEC_LAYERS: 6
+    DEEP_SUPERVISION: true
+    DIM_FEEDFORWARD: 2048
+    DROPOUT: 0.1
+    ENC_LAYERS: 6
+    FOCAL_ALPHA: 0.25
+    FROZEN_WEIGHTS: ''
+    GIOU_WEIGHT: 2.0
+    HIDDEN_DIM: 256
+    L1_WEIGHT: 5.0
+    NHEADS: 8
+    NO_OBJECT_WEIGHT: 0.1
+    NUM_CLASSES: 80
+    NUM_FEATURE_LEVELS: 4
+    NUM_OBJECT_QUERIES: 100
+    PRE_NORM: false
+    TWO_STAGE: false
+    USE_FED_LOSS: false
+    WEAK_WEIGHT: 0.1
+    WITH_BOX_REFINE: false
+  DEVICE: cuda
+  DLA:
+    DLAUP_IN_FEATURES:
+    - dla3
+    - dla4
+    - dla5
+    DLAUP_NODE: conv
+    MS_OUTPUT: false
+    NORM: BN
+    NUM_LAYERS: 34
+    OUT_FEATURES:
+    - dla2
+    USE_DLA_UP: true
+  DYNAMIC_CLASSIFIER: false
+  FPN:
+    FUSE_TYPE: sum
+    IN_FEATURES: []
+    NORM: ''
+    OUT_CHANNELS: 256
+  KEYPOINT_ON: false
+  LOAD_PROPOSALS: false
+  MASK_ON: false
+  META_ARCHITECTURE: CustomRCNN
+  NUM_SAMPLE_CATS: 50
+  PANOPTIC_FPN:
+    COMBINE:
+      ENABLED: true
+      INSTANCES_CONFIDENCE_THRESH: 0.5
+      OVERLAP_THRESH: 0.5
+      STUFF_AREA_LIMIT: 4096
+    INSTANCE_LOSS_WEIGHT: 1.0
+  PIXEL_MEAN:
+  - 103.53
+  - 116.28
+  - 123.675
+  PIXEL_STD:
+  - 1.0
+  - 1.0
+  - 1.0
+  PROPOSAL_GENERATOR:
+    MIN_SIZE: 0
+    NAME: CustomRPN
+  RESET_CLS_TESTS: false
+  RESNETS:
+    DEFORM_MODULATED: false
+    DEFORM_NUM_GROUPS: 1
+    DEFORM_ON_PER_STAGE:
+    - false
+    - false
+    - false
+    - false
+    DEPTH: 50
+    NORM: FrozenBN
+    NUM_GROUPS: 1
+    OUT_FEATURES:
+    - res4
+    RES2_OUT_CHANNELS: 256
+    RES5_DILATION: 1
+    STEM_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: true
+    WIDTH_PER_GROUP: 64
+  RETINANET:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_WEIGHTS: &id003
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    FOCAL_LOSS_ALPHA: 0.25
+    FOCAL_LOSS_GAMMA: 2.0
+    IN_FEATURES:
+    - p3
+    - p4
+    - p5
+    - p6
+    - p7
+    IOU_LABELS:
+    - 0
+    - -1
+    - 1
+    IOU_THRESHOLDS:
+    - 0.4
+    - 0.5
+    NMS_THRESH_TEST: 0.5
+    NORM: ''
+    NUM_CLASSES: 80
+    NUM_CONVS: 4
+    PRIOR_PROB: 0.01
+    SCORE_THRESH_TEST: 0.05
+    SMOOTH_L1_LOSS_BETA: 0.1
+    TOPK_CANDIDATES_TEST: 1000
+  ROI_BOX_CASCADE_HEAD:
+    BBOX_REG_WEIGHTS:
+    - &id002
+      - 10.0
+      - 10.0
+      - 5.0
+      - 5.0
+    - - 20.0
+      - 20.0
+      - 10.0
+      - 10.0
+    - - 30.0
+      - 30.0
+      - 15.0
+      - 15.0
+    IOUS:
+    - 0.5
+    - 0.6
+    - 0.7
+  ROI_BOX_HEAD:
+    ADD_FEATURE_TO_PROP: false
+    ADD_IMAGE_BOX: true
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: *id002
+    CAPTION_WEIGHT: 1.0
+    CAT_FREQ_PATH: datasets/coco/zero-shot/instances_train2017_seen_2_oriorder_cat_info.json
+    CLS_AGNOSTIC_BBOX_REG: true
+    CONV_DIM: 256
+    EQL_FREQ_CAT: 200
+    FC_DIM: 1024
+    FED_LOSS_FREQ_WEIGHT: 0.5
+    FED_LOSS_FREQ_WEIGHT_POWER: 0.5
+    FED_LOSS_NUM_CAT: 50
+    FED_LOSS_NUM_CLASSES: 50
+    IGNORE_ZERO_CATS: true
+    IMAGE_BOX_SIZE: 1.0
+    IMAGE_LABEL_LOSS: max_size
+    IMAGE_LOSS_WEIGHT: 0.1
+    MULT_PROPOSAL_SCORE: false
+    NAME: ''
+    NEG_CAP_WEIGHT: 1.0
+    NORM: ''
+    NORM_TEMP: 50.0
+    NORM_WEIGHT: true
+    NUM_CONV: 0
+    NUM_FC: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+    PRIOR_PROB: 0.01
+    SMOOTH_L1_BETA: 0.0
+    SOFTMAX_WEAK_LOSS: false
+    TRAIN_ON_PRED_BOXES: false
+    USE_BIAS: 0.0
+    USE_EQL_LOSS: false
+    USE_FED_LOSS: false
+    USE_SIGMOID_CE: true
+    USE_ZEROSHOT_CLS: true
+    WITH_SOFTMAX_PROP: false
+    WS_NUM_PROPS: 32
+    DETECTION_WEIGHT_PATH: datasets/metadata/detic_coco_clip_a+cname.npy
+    ZEROSHOT_WEIGHT_DIM: 512
+    ZEROSHOT_WEIGHT_PATH: datasets/metadata/detic_coco_clip_a+cname.npy
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 512
+    IN_FEATURES:
+    - res4
+    IOU_LABELS:
+    - 0
+    - 1
+    IOU_THRESHOLDS:
+    - 0.5
+    MASK_WEIGHT: 1.0
+    NAME: CustomRes5ROIHeads
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    ONE_CLASS_PER_PROPOSAL: false
+    POSITIVE_FRACTION: 0.25
+    PROPOSAL_APPEND_GT: true
+    SCORE_THRESH_TEST: 0.05
+  ROI_KEYPOINT_HEAD:
+    CONV_DIMS:
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    LOSS_WEIGHT: 1.0
+    MIN_KEYPOINTS_PER_IMAGE: 1
+    NAME: KRCNNConvDeconvUpsampleHead
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: true
+    NUM_KEYPOINTS: 17
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  ROI_MASK_HEAD:
+    CLS_AGNOSTIC_MASK: false
+    CONV_DIM: 256
+    NAME: MaskRCNNConvUpsampleHead
+    NORM: ''
+    NUM_CONV: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  RPN:
+    BATCH_SIZE_PER_IMAGE: 256
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: *id003
+    BOUNDARY_THRESH: -1
+    CONV_DIMS:
+    - -1
+    HEAD_NAME: StandardRPNHead
+    IN_FEATURES:
+    - res4
+    IOU_LABELS:
+    - 0
+    - -1
+    - 1
+    IOU_THRESHOLDS:
+    - 0.3
+    - 0.7
+    LOSS_WEIGHT: 1.0
+    NMS_THRESH: 0.7
+    POSITIVE_FRACTION: 0.5
+    POST_NMS_TOPK_TEST: 1000
+    POST_NMS_TOPK_TRAIN: 2000
+    PRE_NMS_TOPK_TEST: 6000
+    PRE_NMS_TOPK_TRAIN: 12000
+    SMOOTH_L1_BETA: 0.0
+  SEM_SEG_HEAD:
+    COMMON_STRIDE: 4
+    CONVS_DIM: 128
+    IGNORE_VALUE: 255
+    IN_FEATURES:
+    - p2
+    - p3
+    - p4
+    - p5
+    LOSS_WEIGHT: 1.0
+    NAME: SemSegFPNHead
+    NORM: GN
+    NUM_CLASSES: 54
+  SWIN:
+    OUT_FEATURES:
+    - 1
+    - 2
+    - 3
+    SIZE: T
+    USE_CHECKPOINT: false
+  SYNC_CAPTION_BATCH: true
+  TEST_CLASSIFIERS: []
+  TEST_NUM_CLASSES: []
+  TIMM:
+    BASE_NAME: resnet50
+    FREEZE_AT: 0
+    NORM: FrozenBN
+    OUT_LEVELS:
+    - 3
+    - 4
+    - 5
+    PRETRAINED: false
+  WEIGHTS: ckpt/models/Detic_OVCOCO_CLIP_R50_1x_max-size_caption.pth
+  WITH_CAPTION: true
+  OVERLAP_TOPK: 3
+  ALPHA: 0.05
+  BETA: 0.75
+  VISUAL_PROTOTYPE: datasets/prototypes/Detic_COCO_RN50.npy
+  CATEGORIES_INFO: datasets/metadata/coco_categories_info.json
+OUTPUT_DIR: output/Detic-COCO/Detic_OVCOCO_CLIP_R50_1x_max-size_caption
+QUICK_DEBUG: false
+SAVE_DEBUG: false
+SAVE_DEBUG_PATH: output/save_debug/
+SAVE_PTH: false
+SEED: -1
+SOLVER:
+  AMP:
+    ENABLED: false
+  BACKBONE_MULTIPLIER: 1.0
+  BASE_LR: 0.02
+  BASE_LR_END: 0.0
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 1000000000
+  CLIP_GRADIENTS:
+    CLIP_TYPE: value
+    CLIP_VALUE: 1.0
+    ENABLED: false
+    NORM_TYPE: 2.0
+  CUSTOM_MULTIPLIER: 1.0
+  CUSTOM_MULTIPLIER_NAME: []
+  GAMMA: 0.1
+  IMS_PER_BATCH: 16
+  LR_SCHEDULER_NAME: WarmupMultiStepLR
+  MAX_ITER: 90000
+  MOMENTUM: 0.9
+  NESTEROV: false
+  NUM_DECAYS: 3
+  OPTIMIZER: SGD
+  REFERENCE_WORLD_SIZE: 0
+  RESCALE_INTERVAL: false
+  RESET_ITER: false
+  STEPS:
+  - 60000
+  - 80000
+  TRAIN_ITER: -1
+  USE_CUSTOM_SOLVER: false
+  WARMUP_FACTOR: 0.001
+  WARMUP_ITERS: 1000
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: null
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AUG:
+    ENABLED: false
+    FLIP: true
+    MAX_SIZE: 4000
+    MIN_SIZES:
+    - 400
+    - 500
+    - 600
+    - 700
+    - 800
+    - 900
+    - 1000
+    - 1100
+    - 1200
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 0
+  EXPECTED_RESULTS: []
+  KEYPOINT_OKS_SIGMAS: []
+  PRECISE_BN:
+    ENABLED: false
+    NUM_ITER: 200
+VERSION: 2
+VIS_PERIOD: 0
+VIS_THRESH: 0.3
+WITH_IMAGE_LABELS: true

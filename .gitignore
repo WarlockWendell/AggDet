@@ -1,0 +1,11 @@
+ckpt/
+
+tempdata/
+output/
+
+datasets/*
+
+!datasets/metadata/
+!datasets/prototypes/
+
+**/__pycache__
