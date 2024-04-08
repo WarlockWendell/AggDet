@@ -41,8 +41,8 @@ from torch.cuda.amp import GradScaler
 import numpy as np
 import json
 
-sys.path.insert(0, 'third_party/CenterNet2/')
-from centernet.config import add_centernet_config
+# sys.path.insert(0, 'third_party/CenterNet2/')
+from third_party.CenterNet2.centernet.config import add_centernet_config
 
 from aggdet.config import add_aggdet_config
 from aggdet.data.custom_build_augmentation import build_custom_augmentation

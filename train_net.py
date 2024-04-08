@@ -38,8 +38,8 @@ from detectron2.data.build import build_detection_train_loader
 from detectron2.utils.logger import setup_logger
 from torch.cuda.amp import GradScaler
 
-sys.path.insert(0, 'third_party/CenterNet2/')
-from centernet.config import add_centernet_config
+# sys.path.insert(0, 'third_party/CenterNet2/')
+from third_party.CenterNet2.centernet.config import add_centernet_config
 
 from aggdet.config import add_aggdet_config
 from aggdet.data.custom_build_augmentation import build_custom_augmentation
