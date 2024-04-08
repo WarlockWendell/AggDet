@@ -1,3 +1,5 @@
+# Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) YH Zheng.
 from typing import Dict, List, Optional, Tuple, Union
 import torch
 import torch.nn.functional as F

@@ -1,4 +1,7 @@
+# This code is modified from https://github.com/facebookresearch/Detic/blob/main/detic/modeling/roi_heads/detic_roi_heads.py
+# Modified by YH Zheng
 # Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) YH Zheng.
 import copy
 import numpy as np
 import json

@@ -1,4 +1,7 @@
+# This code is modified from https://github.com/facebookresearch/Detic/blob/main/detic/modeling/meta_arch/custom_rcnn.py
+# Modified by YH Zheng
 # Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) YH Zheng.
 from typing import Dict, List, Optional, Tuple
 import torch
 from detectron2.utils.events import get_event_storage

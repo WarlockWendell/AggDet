@@ -1,4 +1,7 @@
+# This code is modified from https://github.com/facebookresearch/Detic/blob/main/detic/modeling/roi_heads/zero_shot_classifier.py
+# Modified by YH Zheng
 # Copyright (c) Facebook, Inc. and its affiliates.
+# Copyright (c) YH Zheng.
 import numpy as np
 import torch
 from torch import nn

@@ -17,51 +17,36 @@ Integrated with adjusting techniques specifically designed for the region-propos
 
     Following the [Installation instructions](https://github.com/CVMI-Lab/CoDet/blob/main/README.md#installation) of [CoDet](https://github.com/CVMI-Lab/CoDet) to setup environment.
 
-- Datasets
-
-    Following the [Prepare Datasets](https://github.com/CVMI-Lab/CoDet?tab=readme-ov-file#prepare-datasets) of [CoDet](https://github.com/CVMI-Lab/CoDet) to prepare the COCO and LVIS datasets.
-
-    After the preparation is complete, your directories should be organized as follows:
-    ```
-    datasets/
-    ├── coco
-    │   ├── annotations
-    │   ├── train2017
-    │   ├── val2017
-    │   └── zero-shot
-    ├── lvis
-    │   ├── lvis_v1_train.json
-    │   ├── lvis_v1_train_norare_cat_info.json
-    │   ├── lvis_v1_train_norare.json
-    │   └── lvis_v1_val.json
-    ├── metadata
-    │   ├── coco_categories_info.json
-    │   ├── codet_cc3m_clip_a+cname.npy
-    │   ├── codet_cococap_clip_a+cname.npy
-    │   ├── codet_coco_clip_a+cname.npy
-    │   ├── codet_lvis_v1_clip_a+cname.npy
-    │   ├── codet_o365_clip_a+cnamefix.npy
-    │   ├── detic_coco_clip_a+cname.npy
-    │   ├── detic_lvis_v1_clip_a+cname.npy
-    │   ├── lvis_categories_info.json
-    │   └── lvis_v1_train_cat_info.json
-    └── prototypes
-        ├── CoDet_COCO_RN50.npy
-        ├── CoDet_LVIS_EVA02.npy
-        ├── CoDet_LVIS_RN50.npy
-        ├── CoDet_LVIS_SWINB.npy
-        ├── Detic_COCO_RN50.npy
-        └── Detic_LVIS_SWINB.npy
-    ```
-    where the prototypes directory contains pre-extracted visual prototypes, and you can use [`extract_training_set_features.py`](./extract_training_set_features.py) to generate them.
+    Setup environment
     ```shell
-    ### For Detic with a ResNet50 backbone on the OV-COCO dataset.
-    python extract_training_set_features.py --dataset coco --detection-weight datasets/metadata/detic_coco_clip_a+cname.npy --config-file config/Detic_RN50_COCO.py
+    conda create --name aggdet python=3.8 -y && conda activate aggdet
+    pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116
+    git clone https://github.com/WarlockWendell/AggDet.git
     ```
+    Install detectron2 and other dependencies
+    ```shell
+    cd AggDet/third_party/detectron2
+    pip install -e .
+    cd ../..
+    pip install -r requirements.txt
+    ```
+
+- Datasets
+  
+  Please refer to [DATA.md](./docs/DATA.md) for more details.
 
 - Pretrained weights
 
   You can download the pre-trained weights from the official github repos of [Detic](https://github.com/facebookresearch/Detic/blob/main/docs/MODEL_ZOO.md) and [CoDet](https://github.com/CVMI-Lab/CoDet?tab=readme-ov-file#model-zoo).
+  
+  |model|dataset|download|
+  |:---:|:---:|:---:|
+  |[Detic_RN50](./configs/Detic_RN50_COCO.yaml) | COCO |[model](https://dl.fbaipublicfiles.com/detic/Detic_OVCOCO_CLIP_R50_1x_max-size_caption.pth) |
+  |[CoDet_RN50](./configs/CoDet_RN50_COCO.yaml) | COCO |[model](https://drive.google.com/file/d/1uYX7Jm61TghEtop94fMymBS6AUR66T8k/view?usp=sharing) |
+  |[Detic_SwinB](./configs/Detic_SwinB_LVIS.yaml) | LVIS | [model](https://dl.fbaipublicfiles.com/detic/Detic_LbaseI_CLIP_SwinB_896b32_4x_ft4x_max-size.pth) |
+  |[CoDet_RN50](./configs/CoDet_RN50_LVIS.yaml) | LVIS | [model](https://drive.google.com/file/d/1-chsmrh5fahOOSa4G2o5Mi6W2mGuMtG-/view?usp=sharing)|
+  |[CoDet_SwinB](./configs/CoDet_SwinB_LVIS.yaml) | LVIS|[model](https://drive.google.com/file/d/1ut1K8IsdD2A4uK0xVtPRDg1r4FubH8Pq/view?usp=sharing) |
+  |[CoDet_EVA02](./configs/CoDet_EVA02_LVIS.yaml)|LVIS| [model](https://drive.google.com/file/d/1oILkFkIlbEgCCLqCLyJJ5ZDHG1bd0aWN/view?usp=sharing)|
 
 ## Inference
 Take Detic with a ResNet50 backbone on the OV-COCO dataset as an example.
@@ -81,7 +66,7 @@ python train_net.py --eval-only --config-file configs/Detic_RN50_COCO.yaml  \
 MODEL.OVERLAP_TOPK=0 MODEL.ALPHA 0.0 MODEL.BETA 0.0
 ```
 
-You can change the `config-file` to change the model and dataset.
+You can change the `config-file` to change the model and dataset. Refer to [REPRODUCE.md](./docs/REPRODUCE.md) for more details.
 
 ## Citation
 ```
@@ -95,3 +80,6 @@ You can change the `config-file` to change the model and dataset.
 
 ## Acknowledgment
 AggDet is built upon the awesome works [Codet](https://github.com/CVMI-Lab/CoDet), [EVA](https://github.com/baaivision/EVA/tree/master) and [Detic](https://github.com/facebookresearch/Detic). Many thanks for their wonderful works. 
+
+## License
+This project is licensed under the Apache License 2.0 - see the [LICENSE](./docs/LICENSE) file for details.

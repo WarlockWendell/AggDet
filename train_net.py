@@ -41,7 +41,7 @@ from torch.cuda.amp import GradScaler
 sys.path.insert(0, 'third_party/CenterNet2/')
 from centernet.config import add_centernet_config
 
-from aggdet.config import add_detic_config
+from aggdet.config import add_aggdet_config
 from aggdet.data.custom_build_augmentation import build_custom_augmentation
 from aggdet.data.custom_dataset_dataloader import  build_custom_train_loader
 from aggdet.data.custom_dataset_mapper import CustomDatasetMapper, DetrDatasetMapper
@@ -204,7 +204,7 @@ def setup(args):
     """
     cfg = get_cfg()
     add_centernet_config(cfg)
-    add_detic_config(cfg)
+    add_aggdet_config(cfg)
     print(cfg)
     cfg.merge_from_file(args.config_file)
     cfg.merge_from_list(args.opts)
@@ -215,7 +215,7 @@ def setup(args):
     cfg.freeze()
     default_setup(cfg, args)
     setup_logger(output=cfg.OUTPUT_DIR, \
-        distributed_rank=comm.get_rank(), name="detic")
+        distributed_rank=comm.get_rank(), name="aggdet")
     return cfg
 
 
