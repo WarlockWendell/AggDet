@@ -37,7 +37,7 @@ Integrated with adjusting techniques specifically designed for the region-propos
 
 - Pretrained weights
 
-  You can download the pre-trained weights from the official github repos of [Detic](https://github.com/facebookresearch/Detic/blob/main/docs/MODEL_ZOO.md) and [CoDet](https://github.com/CVMI-Lab/CoDet?tab=readme-ov-file#model-zoo).
+  You can download the pre-trained weights from the official github repos of [Detic](https://github.com/facebookresearch/Detic/blob/main/docs/MODEL_ZOO.md) and [CoDet](https://github.com/CVMI-Lab/CoDet?tab=readme-ov-file#model-zoo), and put them under the `<AGGDET_ROOT>/ckpt/models` directory.
   
   |model|dataset|download|
   |:---:|:---:|:---:|

@@ -459,8 +459,8 @@ MODEL:
   WEIGHTS: ckpt/models/CoDet_OVCOCO_R50_1x.pth
   WITH_CAPTION: true
   OVERLAP_TOPK: 3
-  ALPHA: 0.01
-  BETA: 0.667
+  ALPHA: 0.05
+  BETA: 0.75
   VISUAL_PROTOTYPE: datasets/prototypes/CoDet_COCO_RN50.npy
   CATEGORIES_INFO: datasets/metadata/coco_categories_info.json
 OUTPUT_DIR: output/CoDet_OVCOCO_R50_1x

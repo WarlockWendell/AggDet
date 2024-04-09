@@ -21,8 +21,8 @@ from detectron2.modeling.backbone.backbone import Backbone
 from detectron2.modeling.backbone.build import BACKBONE_REGISTRY
 from detectron2.modeling.backbone.fpn import FPN
 
-from centernet.modeling.backbone.fpn_p5 import LastLevelP6P7_P5
-from centernet.modeling.backbone.bifpn import BiFPN
+from third_party.CenterNet2.centernet.modeling.backbone.fpn_p5 import LastLevelP6P7_P5
+from third_party.CenterNet2.centernet.modeling.backbone.bifpn import BiFPN
 # from .checkpoint import load_checkpoint
 
 class Mlp(nn.Module):
