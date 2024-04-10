@@ -463,7 +463,7 @@ MODEL:
     PRETRAINED: false
   WEIGHTS: ckpt/models/CoDet_OVLVIS_R5021k_4x_ft4x.pth
   WITH_CAPTION: true
-  OVERLAP_TOPK: 3
+  OVERLAP_TOPK: 6
   ALPHA: 0.01
   BETA: 0.667
   VISUAL_PROTOTYPE: datasets/prototypes/CoDet_LVIS_RN50.npy
