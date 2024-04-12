@@ -13,15 +13,17 @@ from detectron2.modeling.box_regression import Box2BoxTransform, _dense_box_regr
 from detectron2.structures import Boxes, Instances
 from detectron2.utils.events import get_event_storage
 
-import mmcv
-from mmcv.ops import soft_nms
-
-
 __all__ = ["fast_rcnn_inference", "FastRCNNOutputLayers"]
 
 
 logger = logging.getLogger(__name__)
 
+try:
+    import mmcv
+    from mmcv.ops import soft_nms
+except:
+    logger.warning("please install mmcv-full==1.7.1 for soft_nms")
+    soft_nms = None
 """
 Shape shorthand in this module:
 

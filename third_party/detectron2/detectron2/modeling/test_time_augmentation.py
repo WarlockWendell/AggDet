@@ -5,8 +5,10 @@ import os.path
 import warnings
 
 from pycocotools.coco import COCO
-from mmcv.ops import soft_nms
-
+try:
+    from mmcv.ops import soft_nms
+except:
+    soft_nms = None
 import numpy as np
 from contextlib import contextmanager
 from itertools import count
