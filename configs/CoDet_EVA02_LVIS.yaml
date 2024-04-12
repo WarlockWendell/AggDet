@@ -6,7 +6,7 @@ DATALOADER:
   - box
   - captiontag
   DATASET_BS:
-  - 4
+  - 2
   - 16
   DATASET_INPUT_SCALE:
   - - 0.1
@@ -14,8 +14,8 @@ DATALOADER:
   - - 0.5
     - 1.5
   DATASET_INPUT_SIZE:
-  - 896
-  - 448
+  - 1280
+  - 640
   DATASET_MAX_SIZES:
   - 1333
   - 667
@@ -26,7 +26,7 @@ DATALOADER:
     - 400
   DATASET_RATIO:
   - 1
-  - 4
+  - 8
   FILTER_EMPTY_ANNOTATIONS: false
   MULTI_DATASET_GROUPING: true
   NUM_WORKERS: 8
@@ -70,7 +70,7 @@ INPUT:
   CUSTOM_AUG: EfficientDetResizeCrop
   FORMAT: RGB
   MASK_FORMAT: polygon
-  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TEST: 1024
   MAX_SIZE_TRAIN: 1333
   MIN_SIZE_TEST: 800
   MIN_SIZE_TRAIN:
@@ -83,7 +83,7 @@ INPUT:
   - 2.0
   TEST_INPUT_TYPE: default
   TEST_SIZE: 640
-  TRAIN_SIZE: 640
+  TRAIN_SIZE: 1280
 IS_DEBUG: false
 MODEL:
   ANCHOR_GENERATOR:
@@ -105,14 +105,14 @@ MODEL:
       - 512
   BACKBONE:
     FREEZE_AT: 2
-    NAME: build_swintransformer_fpn_backbone
+    NAME: build_vitdet
   BIFPN:
     NORM: GN
     NUM_BIFPN: 6
     NUM_LEVELS: 5
     OUT_CHANNELS: 160
     SEPARABLE_CONV: false
-  CAP_BATCH_RATIO: 4
+  CAP_BATCH_RATIO: 8
   CENTERNET:
     AS_PROPOSAL: false
     CENTER_NMS: false
@@ -214,9 +214,9 @@ MODEL:
   FPN:
     FUSE_TYPE: sum
     IN_FEATURES:
-    - swin1
-    - swin2
-    - swin3
+    - layer3
+    - layer4
+    - layer5
     NORM: ''
     OUT_CHANNELS: 256
   KEYPOINT_ON: false
@@ -360,6 +360,7 @@ MODEL:
   ROI_HEADS:
     BATCH_SIZE_PER_IMAGE: 512
     IN_FEATURES:
+    - p2
     - p3
     - p4
     - p5
@@ -447,7 +448,7 @@ MODEL:
     - 1
     - 2
     - 3
-    SIZE: B-22k
+    SIZE: T
     USE_CHECKPOINT: false
   SYNC_CAPTION_BATCH: true
   TEST_CLASSIFIERS: []
@@ -466,7 +467,7 @@ MODEL:
   OVERLAP_TOPK: 6
   ALPHA: 0.01
   BETA: 0.667
-  VISUAL_PROTOTYPE: datasets/prototypes/CoDet_LVIS_RN50.npy
+  VISUAL_PROTOTYPE: datasets/prototypes/CoDet_LVIS_EVA02.npy
   CATEGORIES_INFO: datasets/metadata/lvis_categories_info.json
 OUTPUT_DIR: output/CoDet_OVLVIS_EVA_4x
 QUICK_DEBUG: false
@@ -477,8 +478,8 @@ SEED: -1
 SOLVER:
   AMP:
     ENABLED: false
-  BACKBONE_MULTIPLIER: 1.0
-  BASE_LR: 0.0001
+  BACKBONE_MULTIPLIER: 0.25
+  BASE_LR: 0.0002
   BASE_LR_END: 0.0
   BIAS_LR_FACTOR: 1.0
   CHECKPOINT_PERIOD: 10000
@@ -490,9 +491,9 @@ SOLVER:
   CUSTOM_MULTIPLIER: 1.0
   CUSTOM_MULTIPLIER_NAME: []
   GAMMA: 0.1
-  IMS_PER_BATCH: 32
+  IMS_PER_BATCH: 64
   LR_SCHEDULER_NAME: WarmupCosineLR
-  MAX_ITER: 180000
+  MAX_ITER: 90000
   MOMENTUM: 0.9
   NESTEROV: false
   OPTIMIZER: ADAMW
@@ -525,7 +526,7 @@ TEST:
     - 1100
     - 1200
   DETECTIONS_PER_IMAGE: 300
-  EVAL_PERIOD: 0
+  EVAL_PERIOD: 10000
   EXPECTED_RESULTS: []
   KEYPOINT_OKS_SIGMAS: []
   PRECISE_BN:

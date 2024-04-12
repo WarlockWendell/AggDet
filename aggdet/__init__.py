@@ -4,6 +4,7 @@ from .modeling.roi_heads import aggdet_roi_heads
 from .modeling.roi_heads import res5_roi_heads
 from .modeling.backbone import swintransformer
 from .modeling.backbone import timm
+from .modeling.backbone import eva
 from .modeling.rpn import customrpn
 
 from .data.datasets import lvis_v1

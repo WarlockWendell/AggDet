@@ -23,6 +23,13 @@ Integrated with adjusting techniques specifically designed for the region-propos
     pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116
     git clone https://github.com/WarlockWendell/AggDet.git
     ```
+    Install [Apex](https://github.com/NVIDIA/apex#linux) and [xFormer](https://github.com/facebookresearch/xformers#installing-xformers) (You can skip this part if you do not use EVA-02 backbone)
+    ```shell script
+    pip install ninja
+    pip install -v -U git+https://github.com/facebookresearch/xformers.git@7e05e2caaaf8060c1c6baadc2b04db02d5458a94
+    git clone https://github.com/NVIDIA/apex && cd apex
+    pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --global-option="--cpp_ext" --global-option="--cuda_ext" ./ && cd ..
+    ```
     Install detectron2 and other dependencies
     ```shell
     cd AggDet/third_party/detectron2
