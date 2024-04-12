@@ -108,11 +108,13 @@ def custom_fast_rcnn_inference_single_image(
     boxes = boxes.tensor.view(-1, num_bbox_reg_classes, 4)  # R x C x 4 
     boxes_copy = boxes.clone().view(-1, 4)
     
+    ##### Aggregated Object-Classification -- Localization Quality Estimation
     k = overlap_topk
     ious = iou_matrix(boxes_copy, boxes_copy)
     ious[torch.arange(ious.shape[0]), torch.arange(ious.shape[0])] = 0.0
     overlaps = torch.mean(torch.topk(ious, dim=1, k=k)[0], dim=1)
     scores[:, :] = scores[:, :] ** (beta) * overlaps[:, None] ** (1 - beta)
+    #####
     
     boxes = boxes.repeat(1, scores.shape[1], 1)
     # 1. Filter results based on detection scores. It can make NMS more efficient

@@ -656,6 +656,7 @@ class CenterNet(nn.Module):
             boxes = boxlists_before_nms[i].pred_boxes
             scores_per_img = boxlists_before_nms[i].scores
             k = self.overlap_topk
+            ##### Aggregated Region-Proposal -- Localization Quality Estimation
             ious = iou_matrix(boxes.tensor, boxes.tensor)
             ious[torch.arange(ious.shape[0], device=ious.device), torch.arange(ious.shape[1], device=ious.device)] = 0.0
             overlaps = torch.mean(torch.topk(ious, k=k, dim=-1)[0], dim=-1)
@@ -671,6 +672,7 @@ class CenterNet(nn.Module):
                 keep = keep1
             boxlists_before_nms[i].scores = origin_scores.clone()
             boxlists.append(boxlists_before_nms[i][keep]) # proposed
+            ##### 
         return boxlists, boxlists_before_nms, keep
 
     

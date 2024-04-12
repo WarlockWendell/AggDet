@@ -118,9 +118,11 @@ class ZeroShotClassifier(nn.Module):
         
         x = torch.mm(x, zs_weight)
         
+        ##### Aggregated Object-Classification -- Visual Similarity Estimation
         x[:, self.unseen_cls] =  self.norm_temperature * (x[:, self.unseen_cls]  + self.alpha * (scores2[:, self.unseen_cls]))
         x[:, self.seen_cls] = self.norm_temperature * x[:, self.seen_cls]
         x[:, self.unused_cls] = self.norm_temperature * x[:, self.unused_cls]
+        ##### 
         
         if self.use_bias:
             x = x + self.cls_bias

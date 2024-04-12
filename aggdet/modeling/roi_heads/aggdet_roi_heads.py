@@ -159,7 +159,9 @@ class AggdetCascadeROIHeads(CascadeROIHeads):
             if self.one_class_per_proposal:
                 scores = [s * (s == s[:, :-1].max(dim=1)[0][:, None]).float() for s in scores]
             
+            ##### Aggregated Object-Classification -- Localization Quality Estimation
             scores[0][:, :-1] = (scores[0][:, :-1]) ** (self.beta) * overlaps[:, None] ** (1 - self.beta)
+            #####
             
             predictor, predictions, proposals = head_outputs[-1]
             boxes = predictor.predict_boxes(

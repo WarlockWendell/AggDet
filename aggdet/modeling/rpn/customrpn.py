@@ -232,10 +232,12 @@ def find_top_rpn_proposals(
         if overlap_topk == 0:
             keep = batched_nms(boxes.tensor, scores_per_img, lvl, nms_thresh)[:post_nms_topk]
         else:
+            ##### Aggregated Region-Proposal -- Localization Quality Estimation
             ious = iou_matrix(boxes.tensor, boxes.tensor)
             ious[torch.arange(ious.shape[0]), torch.arange(ious.shape[0])] = 0.0
             overlaps = torch.mean(torch.topk(ious, k=overlap_topk, dim=-1)[0], dim=-1)
             keep = batched_nms(boxes.tensor, (overlaps + scores_per_img.sigmoid()) * 0.5, lvl, nms_thresh)[:post_nms_topk]
+            ##### 
 
         res = Instances(image_size)
         res.proposal_boxes = boxes[keep]
