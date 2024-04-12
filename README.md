@@ -28,6 +28,7 @@ Integrated with adjusting techniques specifically designed for the region-propos
     pip install ninja
     pip install -v -U git+https://github.com/facebookresearch/xformers.git@7e05e2caaaf8060c1c6baadc2b04db02d5458a94
     git clone https://github.com/NVIDIA/apex && cd apex
+    pip install packaging
     pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --global-option="--cpp_ext" --global-option="--cuda_ext" ./ && cd ..
     ```
     Install detectron2 and other dependencies

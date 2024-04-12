@@ -25,10 +25,12 @@ def _to_container(cfg):
     """
     if isinstance(cfg, DictConfig):
         cfg = OmegaConf.to_container(cfg, resolve=True)
-    from mmcv.utils import ConfigDict
-
-    return ConfigDict(cfg)
-
+    try:
+        from mmcv.utils import ConfigDict
+        return ConfigDict(cfg)
+    except:
+        logger.warning("please install mmcv-full==1.7.1")
+        return None
 
 class MMDetBackbone(Backbone):
     """
