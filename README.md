@@ -1,5 +1,5 @@
 # AggDet
-This repo is the implementation of [Training-free Boost for Open-Vocabulary Object Detection with Confidence Aggregation]()
+This repo is the implementation of [Training-free Boost for Open-Vocabulary Object Detection with Confidence Aggregation](https://arxiv.org/abs/2404.08603)
 
 ## Abstract
 Open-vocabulary object detection (OVOD) aims at localizing and recognizing visual objects from novel classes unseen at the training time.
@@ -45,7 +45,7 @@ Integrated with adjusting techniques specifically designed for the region-propos
 
 - Pretrained weights
 
-  You can download the pre-trained weights from the official github repos of [Detic](https://github.com/facebookresearch/Detic/blob/main/docs/MODEL_ZOO.md) and [CoDet](https://github.com/CVMI-Lab/CoDet?tab=readme-ov-file#model-zoo), and put them under the `<AGGDET_ROOT>/ckpt/models` directory.
+  You can download the pre-trained weights from the official GitHub repos of [Detic](https://github.com/facebookresearch/Detic/blob/main/docs/MODEL_ZOO.md) and [CoDet](https://github.com/CVMI-Lab/CoDet?tab=readme-ov-file#model-zoo), and put them under the `<AGGDET_ROOT>/ckpt/models` directory.
   
   |model|dataset|download|
   |:---:|:---:|:---:|
@@ -62,7 +62,7 @@ Take Detic with a ResNet50 backbone on the OV-COCO dataset as an example.
 python train_net.py --eval-only --config-file configs/Detic_RN50_COCO.yaml
 ```
 
-You can modify the fllowing parameters in the [yaml file](./configs/Detic_RN50_COCO.yaml#L456) to adjust the parameters described in the paper.
+You can modify the following parameters in the [yaml file](./configs/Detic_RN50_COCO.yaml#L456) to adjust the parameters described in the paper.
 ```yaml
 OVERLAP_TOPK: 3
 ALPHA: 0.05
@@ -81,13 +81,13 @@ You can change the `config-file` to change the model and dataset. Refer to [REPR
 @article{
   title={Training-free Boost for Open-Vocabulary Object Detection with Confidence Aggregation},
   author={Yanhao Zheng, Kai Liu},
-  journal={arXiv preprint arXiv:xxxx.xxxx},
+  journal={arXiv preprint arXiv:2404.08603},
   year={2024}
 }
 ```
 
 ## Acknowledgment
-AggDet is built upon the awesome works [Codet](https://github.com/CVMI-Lab/CoDet), [EVA](https://github.com/baaivision/EVA/tree/master) and [Detic](https://github.com/facebookresearch/Detic). Many thanks for their wonderful works. 
+AggDet is built upon the awesome works [Codet](https://github.com/CVMI-Lab/CoDet), [EVA](https://github.com/baaivision/EVA/tree/master) and [Detic](https://github.com/facebookresearch/Detic). Many thanks for their wonderful work. 
 
 ## License
 This project is licensed under the Apache License 2.0 - see the [LICENSE](./docs/LICENSE) file for details.
